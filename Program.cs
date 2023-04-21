@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
-using System.Media;
 
 namespace MorseCodeWithSound
 {
@@ -23,6 +24,24 @@ namespace MorseCodeWithSound
             Console.WriteLine(dividerLine);
             Console.WriteLine(paddedDeveloperInfo);
             Console.ResetColor();
+
+            string beepFilePath = "../../beep.wav";
+            string beepFilePath1 = "../../beep1.wav";
+            SoundPlayer beepPlayer = new SoundPlayer();
+            SoundPlayer beepPlayer1 = new SoundPlayer();
+            if (File.Exists(beepFilePath))
+            {
+                beepPlayer.SoundLocation = beepFilePath;
+            } 
+            if (File.Exists(beepFilePath1))
+            {
+                beepPlayer1.SoundLocation = beepFilePath1;
+            }
+            else
+            {
+                Console.WriteLine("Beep sound file not found: {0}", beepFilePath);
+                Console.WriteLine("Beep sound file not found: {0}", beepFilePath1);
+            }
 
             Console.SetCursorPosition(0, 0);
             Console.Write("Enter text to convert to Morse code: ");
@@ -83,14 +102,14 @@ namespace MorseCodeWithSound
                 if (c == '.')
                 {
                     Console.Write(".");
-                    SystemSounds.Beep.Play();
-                    System.Threading.Thread.Sleep(200);
+                    beepPlayer1.Play();
+                    System.Threading.Thread.Sleep(700);
                 }
                 else if (c == '-')
                 {
                     Console.Write("-");
-                    SystemSounds.Beep.Play();
-                    System.Threading.Thread.Sleep(600);
+                    beepPlayer.Play();
+                    System.Threading.Thread.Sleep(700);
                 }
                 else if (c == ' ')
                 {
